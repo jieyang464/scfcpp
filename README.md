@@ -1,6 +1,6 @@
 # scfcpp
 
-A minimal Hartree–Fock (RHF) playground using Eigen for linear algebra and Libint2 for Gaussian integrals. Includes routines to compute overlap, kinetic, nuclear attraction, and two-electron integrals (ERIs), plus a simple SCF harness.
+A minimal Hartree–Fock (RHF/UHF) and DFT playground using Eigen for linear algebra and Libint2 for Gaussian integrals. Includes routines to compute overlap, kinetic, nuclear attraction, and two-electron integrals (ERIs), plus a simple SCF harness.
 
 ## Requirements
 
@@ -8,12 +8,15 @@ A minimal Hartree–Fock (RHF) playground using Eigen for linear algebra and Lib
 - pkg-config
 - Eigen 3.4+
 - Libint2 2.7+
+- LibXC 5.0+ (optional, for DFT LDA/GGA functionals)
 
 ### Ubuntu/Debian (apt)
 
 ```bash
 sudo apt update
 sudo apt install -y build-essential pkg-config libeigen3-dev libint2-dev
+# Optional: for DFT support
+sudo apt install -y libxc-dev
 ```
 
 If `libint2-dev` isn’t found, enable the universe repo and retry:
@@ -27,12 +30,16 @@ sudo apt install -y libint2-dev
 
 ```bash
 sudo dnf install -y eigen3-devel libint-devel pkgconf-pkg-config
+# Optional: for DFT support
+sudo dnf install -y libxc-devel
 ```
 
 ### Arch (pacman)
 
 ```bash
 sudo pacman -S --needed eigen libint2 pkgconf
+# Optional: for DFT support
+sudo pacman -S --needed libxc
 ```
 
 ### Build from source (fallback)
@@ -73,7 +80,12 @@ Use the provided Makefile (uses pkg-config):
 ```bash
 make
 ```
-This builds `build/scfcpp_demo` by compiling sources in `src/` and tests in `test/`.
+This builds test executables in `build/` by compiling sources in `src/` and tests in `test/`.
+
+To enable DFT support with LibXC:
+```bash
+make XC=1
+```
 
 Alternatively, compile manually:
 ```bash
@@ -127,4 +139,4 @@ The project includes many `.g94` basis files under `basis/`. The code attempts t
 
 ## License
 
-TBD
+MIT License. See [LICENSE](LICENSE) for details.
